@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"math"
+	"testing"
 )
 
 func getPrimesBelowN(n int) []int {
@@ -27,7 +28,14 @@ func getPrimesBelowN(n int) []int {
 	return primes
 }
 
+func BenchmarkFunction(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		getPrimesBelowN(1000000)
+	}
+}
+
 func main() {
 
-	fmt.Println(len(getPrimesBelowN(1000000)))
+	br := testing.Benchmark(BenchmarkFunction)
+	fmt.Println(float64(br.NsPerOp()) / math.Pow(10.0, 9.0))
 }

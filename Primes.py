@@ -1,4 +1,5 @@
 import math
+import time
 
 
 def GetPrimesBelowN(n):
@@ -17,4 +18,9 @@ def GetPrimesBelowN(n):
 
     return primes
 
-print(len(GetPrimesBelowN(1000000)))
+start= time.clock()
+for i in range(10):
+    GetPrimesBelowN(1000000)
+end= time.clock()
+time= (end-start)/10
+print(time)
