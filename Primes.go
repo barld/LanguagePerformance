@@ -28,14 +28,17 @@ func getPrimesBelowN(n int) []int {
 	return primes
 }
 
-func BenchmarkFunction(b *testing.B) {
-	for i := 0; i < b.N; i++ {
-		getPrimesBelowN(1000000)
+func BenchmarkFunction(below int) func(*testing.B) {
+	return func(b *testing.B) {
+		for i := 0; i < b.N; i++ {
+			getPrimesBelowN(below)
+		}
 	}
 }
 
 func main() {
-
-	br := testing.Benchmark(BenchmarkFunction)
-	fmt.Println(float64(br.NsPerOp()) / math.Pow(10.0, 9.0))
+	for i := 100; i <= 1000*1000*1000; i *= 10 {
+		br := testing.Benchmark(BenchmarkFunction(i))
+		fmt.Printf("primes below %d, in %f secs\n", i, float64(br.NsPerOp())/math.Pow(10.0, 9.0))
+	}
 }
