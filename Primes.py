@@ -18,9 +18,13 @@ def GetPrimesBelowN(n):
 
     return primes
 
-start= time.clock()
-for i in range(10):
-    GetPrimesBelowN(1000000)
-end= time.clock()
-time= (end-start)/10
-print(time)
+
+x = 100
+while x <= 10000000:
+    start = time.clock()
+    for i in range(10):
+        GetPrimesBelowN(x)
+    end = time.clock()
+    tTime = (end-start)/10
+    print(x, "in:",tTime)
+    x *= 10
